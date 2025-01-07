@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ফারিয়া ফান: আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন একদম নিখুঁত অভিজ্ঞতার সাথে।">
-    <meta name="keywords" content="ফারিয়া ফান, লাইভ টিভি, বাংলা চ্যানেল, টিভি স্ট্রিমিং, হাই কোয়ালিটি ভিডিও">
+    <meta name="description" content="ফারিয়া ফান: আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন">
+    <meta name="keywords" content="ফারিয়া ফান, লাইভ টিভি, বাংলা চ্যানেল, টিভি স্ট্রিমিং, হাই কোয়ালিটি">
     <meta name="author" content="Likhon Sheikh">
     <meta property="og:title" content="ফারিয়া ফান - লাইভ টিভি স্ট্রিমিং">
-    <meta property="og:description" content="ফারিয়া ফান আপনাকে উচ্চমানের লাইভ টিভি স্ট্রিমিং অভিজ্ঞতা প্রদান করে।">
+    <meta property="og:description" content="ফারিয়া ফান আপনাকে উচ্চমানের লাইভ টিভি স্ট্রিমিং অভিজ্ঞতা প্রদান করে">
     <meta property="og:image" content="thumbnail.jpg">
     <meta property="og:url" content="https://faria.fun">
     <meta property="og:type" content="website">
@@ -102,6 +102,12 @@
             background-color: #000;
         }
 
+        .error-message {
+            color: #ff0000;
+            margin-top: 1rem;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2rem;
@@ -116,7 +122,6 @@
             }
         }
 
-        /* Keyframe Animation */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -133,19 +138,19 @@
 <body>
     <header>
         <h1>ফারিয়া ফান</h1>
-        <p>আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন একদম নিখুঁত অভিজ্ঞতার সাথে।</p>
+        <p>আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন একদম নিখুঁত অভিজ্ঞতার সাথে</p>
     </header>
     <main>
         <div id="channel-list" class="channel-list"></div>
         <div class="video-container" id="video-container">
             <video id="tv-player" controls autoplay></video>
         </div>
+        <div id="error-message" class="error-message"></div>
     </main>
 
     <script>
         const channelDataUrl = "https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_channel_data.json";
 
-        // Fetch and render channels
         async function loadChannels() {
             try {
                 const response = await fetch(channelDataUrl);
@@ -163,18 +168,22 @@
                     channelList.appendChild(channelCard);
                 });
             } catch (error) {
-                console.error("Error loading channels:", error);
+                showError("Error loading channels: " + error.message);
             }
         }
 
-        // Play channel
         function playChannel(link, headers) {
             const player = document.getElementById("tv-player");
             player.src = link;
             console.log("Playing channel with headers:", headers);
         }
 
-        // Initial load of channels
+        function showError(message) {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.textContent = message;
+            errorDiv.style.display = "block";
+        }
+
         loadChannels();
     </script>
 </body>
