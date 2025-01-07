@@ -66,7 +66,7 @@ function parseM3U(content) {
                 metadataStr.split(' ').map(item => item.split('=').map(s => s.replace(/"/g, '')))
             );
             currentChannel = {
-                name: line.split(',')[1].trim(),
+                name: line.split(',')[1]?.trim() || 'Unknown Channel',
                 logo: metadata['tvg-logo'],
                 category: metadata['group-title'] || 'Uncategorized'
             };
@@ -81,7 +81,9 @@ function parseM3U(content) {
             }
         } else if (line.trim() && !line.startsWith('#')) {
             currentChannel.link = line.trim();
-            channels.push(currentChannel);
+            if (currentChannel.name && currentChannel.link) {
+                channels.push(currentChannel);
+            }
             currentChannel = {};
         }
     }
@@ -196,7 +198,8 @@ async function init() {
     const playlistContents = await fetchPlaylists();
     if (playlistContents.length === 0) return;
 
-    allChannels = playlistContents.flatMap(content => parseM3U(content));
+    allChannels = playlistContents.flatMap(content => parseM3U(content))
+        .filter(channel => channel.name); // Ensure channels have a name
     allChannels.sort((a, b) => a.name.localeCompare(b.name));
 
     renderChannels(allChannels);
@@ -221,4 +224,3 @@ if (localStorage.getItem('darkMode') === 'true') {
 }
 
 init();
-
