@@ -5,7 +5,7 @@ const categoryContainer = document.getElementById('category-container');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const CORS_PROXY = 'https://corsproxy.io/?url=';
 const PLAYLISTS = [
     'https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_OTT_Navigator.m3u',
     'https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_NS_Player.m3u'
