@@ -12,7 +12,7 @@ body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    transition: background-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 .navbar {
@@ -180,3 +180,45 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+.dark-mode {
+    --background-color: #1a202c;
+    --text-color: #e2e8f0;
+    --card-background: #2d3748;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .navbar {
+    background-color: #2d3748;
+}
+
+.dark-mode .btn-outline-light {
+    color: #e2e8f0;
+    border-color: #e2e8f0;
+}
+
+.dark-mode .btn-outline-light:hover {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.dark-mode #about {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.dark-mode #about:hover {
+    background-color: rgba(59, 130, 246, 0.2);
+}
+
+.dark-mode .modal-content {
+    background-color: #2d3748;
+}
+
+.dark-mode .modal-header {
+    border-bottom-color: #4a5568;
+}
+
+.dark-mode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
