@@ -1,111 +1,253 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ফারিয়া ফান: আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন">
-    <meta name="keywords" content="ফারিয়া ফান, লাইভ টিভি, বাংলা চ্যানেল, টিভি স্ট্রিমিং, হাই কোয়ালিটি">
+    
+    <!-- Enhanced SEO -->
+    <title>ফারিয়া ফান - বাংলাদেশের সেরা লাইভ টিভি স্ট্রিমিং প্ল্যাটফর্ম</title>
+    <meta name="description" content="ফারিয়া ফান - সর্বোচ্চ মানের লাইভ টিভি স্ট্রিমিং। সকল জনপ্রিয় বাংলাদেশি চ্যানেল দেখুন HD কোয়ালিটিতে, বিনামূল্যে।">
+    <meta name="keywords" content="ফারিয়া ফান, লাইভ টিভি, বাংলা চ্যানেল, টিভি স্ট্রিমিং, এইচডি স্ট্রিমিং, বাংলাদেশি টিভি চ্যানেল, লাইভ স্ট্রিমিং">
     <meta name="author" content="Likhon Sheikh">
-    <meta property="og:title" content="ফারিয়া ফান - লাইভ টিভি স্ট্রিমিং">
-    <meta property="og:description" content="ফারিয়া ফান আপনাকে উচ্চমানের লাইভ টিভি স্ট্রিমিং অভিজ্ঞতা প্রদান করে">
-    <meta property="og:image" content="thumbnail.jpg">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali">
+    <meta name="revisit-after" content="1 days">
+    
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="ফারিয়া ফান - বাংলাদেশের সেরা লাইভ টিভি স্ট্রিমিং">
+    <meta property="og:description" content="সকল জনপ্রিয় বাংলাদেশি চ্যানেল এখন HD কোয়ালিটিতে। বিনামূল্যে দেখুন ফারিয়া ফানে।">
+    <meta property="og:image" content="https://faria.fun/assets/thumbnail.jpg">
     <meta property="og:url" content="https://faria.fun">
     <meta property="og:type" content="website">
-    <title>ফারিয়া ফান</title>
+    <meta property="og:site_name" content="ফারিয়া ফান">
+    
+    <!-- Twitter Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ফারিয়া ফান - লাইভ টিভি স্ট্রিমিং">
+    <meta name="twitter:description" content="সকল জনপ্রিয় বাংলাদেশি চ্যানেল এখন HD কোয়ালিটিতে">
+    <meta name="twitter:image" content="https://faria.fun/assets/thumbnail.jpg">
     
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css">
+    
     <style>
-        body {
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-dark: #0f172a;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --error: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background: var(--background);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         header {
-            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             padding: 2rem 1rem;
-            background-color: #1f1f1f;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                        linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 60px 60px;
+            opacity: 0.1;
+            animation: headerPattern 60s linear infinite;
+        }
+
+        @keyframes headerPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
         }
 
         header h1 {
             font-size: 2.5rem;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin: 0;
-            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        header p {
+            color: var(--text);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
         }
 
         main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 2rem;
         }
 
+        .player-section {
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--surface-dark);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .plyr {
+            height: 100%;
+        }
+
         .channel-list {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 1rem;
-            justify-content: center;
-            animation: fadeIn 1s ease-in-out;
+            padding: 1rem;
         }
 
         .channel-card {
-            background: #1e1e2f;
+            background: var(--surface);
+            border-radius: 1rem;
             padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
             cursor: pointer;
-            width: 180px;
-            transition: transform 0.3s ease, background 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
         }
 
         .channel-card:hover {
-            transform: scale(1.1);
-            background: #292943;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .channel-card.active {
+            border-color: var(--primary);
+        }
+
+        .channel-card.active::before {
+            opacity: 0.1;
         }
 
         .channel-logo {
             width: 100%;
-            max-height: 120px;
+            height: 100px;
             object-fit: contain;
-            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .video-container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 2rem;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-in-out;
+        .channel-name {
+            font-size: 1rem;
+            color: var(--text);
+            text-align: center;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
 
-        .video-container video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            background-color: #000;
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--text);
+            border-bottom-color: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
         }
 
         .error-message {
-            color: #ff0000;
-            margin-top: 1rem;
+            background: var(--error);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
             display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         @media (max-width: 768px) {
@@ -113,24 +255,324 @@
                 font-size: 2rem;
             }
 
-            .channel-card {
-                width: 150px;
+            .channel-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
 
-            .video-container {
-                max-width: 100%;
+            main {
+                padding: 1rem;
             }
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(10px);
+        /* Custom Plyr Styling */
+        .plyr--video {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .plyr--video .plyr__control--overlaid {
+            background: var(--primary);
+        }
+
+        .plyr--video .plyr__control:hover {
+            background: var(--primary-dark);
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: var(--primary);
+        }
+
+        .plyr__control--pressed {
+            background: var(--primary) !important, I'll provide the final version of the `index.html` file for `faria.fun` with the necessary enhancements and optimizations. This version includes modern and advanced features, improved performance, and more responsive design.
+
+```html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Enhanced SEO -->
+    <title>ফারিয়া ফান - বাংলাদেশের সেরা লাইভ টিভি স্ট্রিমিং প্ল্যাটফর্ম</title>
+    <meta name="description" content="ফারিয়া ফান - সর্বোচ্চ মানের লাইভ টিভি স্ট্রিমিং। সকল জনপ্রিয় বাংলাদেশি চ্যানেল দেখুন HD কোয়ালিটিতে, বিনামূল্যে।">>
+    <meta name="keywords" content="ফারিয়া ফান, লাইভ টিভি, বাংলা চ্যানেল, টিভি স্ট্রিমিং, এইচডি স্ট্রিমিং, বাংলাদেশি টিভি চ্যানেল, লাইভ স্ট্রিমিং">
+    <meta name="author" content="Likhon Sheikh">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali">
+    <meta name="revisit-after" content="1 days">
+    
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="ফারিয়া ফান - বাংলাদেশের সেরা লাইভ টিভি স্ট্রিমিং">
+    <meta property="og:description" content="সকল জনপ্রিয় বাংলাদেশি চ্যানেল এখন HD কোয়ালিটিতে। বিনামূল্যে দেখুন ফারিয়া ফানে।">
+    <meta property="og:image" content="https://faria.fun/assets/thumbnail.jpg">
+    <meta property="og:url" content="https://faria.fun">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ফারিয়া ফান">
+    
+    <!-- Twitter Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ফারিয়া ফান - লাইভ টিভি স্ট্রিমিং">
+    <meta name="twitter:description" content="সকল জনপ্রিয় বাংলাদেশি চ্যানেল এখন HD কোয়ালিটিতে">
+    <meta name="twitter:image" content="https://faria.fun/assets/thumbnail.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-dark: #0f172a;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --error: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                        linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 60px 60px;
+            opacity: 0.1;
+            animation: headerPattern 60s linear infinite;
+        }
+
+        @keyframes headerPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        header p {
+            color: var(--text);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .player-section {
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--surface-dark);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .plyr {
+            height: 100%;
+        }
+
+        .channel-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .channel-card {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .channel-card.active {
+            border-color: var(--primary);
+        }
+
+        .channel-card.active::before {
+            opacity: 0.1;
+        }
+
+        .channel-logo {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .channel-name {
+            font-size: 1rem;
+            color: var(--text);
+            text-align: center;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--text);
+            border-bottom-color: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+        }
+
+        .error-message {
+            background: var(--error);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            display: none;
+            animation: slideIn 0.3s ease;
+>
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
             }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
+
+            .channel-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+
+            main {
+                padding: 1rem;
+            }
+        }
+
+        /* Custom Plyr Styling */
+        .plyr--video {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .plyr--video .plyr__control--overlaid {
+            background: var(--primary);
+        }
+
+        .plyr--video .plyr__control:hover {
+            background: var(--primary-dark);
+        }
+
+        .plyr--full-ui input[type=range] {
+            color: var(--primary);
+        }
+
+        .plyr__control--pressed {
+            background: var(--primary) !important;
         }
     </style>
 </head>
@@ -138,54 +580,190 @@
 <body>
     <header>
         <h1>ফারিয়া ফান</h1>
-        <p>আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন একদম নিখুঁত অভিজ্ঞতার সাথে</p>
+        <p>আপনার প্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং দেখুন HD কোয়ালিটিতে</p>
     </header>
+
     <main>
-        <div id="channel-list" class="channel-list"></div>
-        <div class="video-container" id="video-container">
-            <video id="tv-player" controls autoplay></video>
+        <div class="player-section">
+            <div class="video-container">
+                <video id="player" playsinline controls crossorigin></video>
+            </div>
+            <div id="error-message" class="error-message"></div>
         </div>
-        <div id="error-message" class="error-message"></div>
+        
+        <div id="channel-list" class="channel-list"></div>
     </main>
 
+    <div class="loading-overlay" id="loading">
+        <span class="loader"></span>
+    </div>
+
     <script>
-        const channelDataUrl = "https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_channel_data.json";
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize variables
+            let player;
+            let hls;
+            let currentChannel = null;
+            const channelDataUrl = "https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_channel_data.json";
 
-        async function loadChannels() {
-            try {
-                const response = await fetch(channelDataUrl);
-                const data = await response.json();
-
-                const channelList = document.getElementById("channel-list");
-                data.channels.forEach(channel => {
-                    const channelCard = document.createElement("div");
-                    channelCard.className = "channel-card";
-                    channelCard.innerHTML = `
-                        <img src="${channel.logo}" alt="${channel.name}" class="channel-logo">
-                        <h4>${channel.name}</h4>
-                    `;
-                    channelCard.addEventListener("click", () => playChannel(channel.link, channel.headers));
-                    channelList.appendChild(channelCard);
+            // Initialize Plyr
+            function initializePlayer() {
+                player = new Plyr('#player', {
+                    controls: [
+                        'play-large', 'play', 'progress', 'current-time', 'duration',
+                        'mute', 'volume', 'settings', 'fullscreen'
+                    ],
+                    quality: {
+                        default: 720,
+                        options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240]
+                    },
+                    speed: {
+                        selected: 1,
+                        options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+                    }
                 });
-            } catch (error) {
-                showError("Error loading channels: " + error.message);
+
+                // Initialize HLS
+                if (Hls.isSupported()) {
+                    hls = new Hls({
+                        enableWorker: true,
+                        lowLatencyMode: true,
+                        backBufferLength: 90,
+                        maxBufferLength: 30,
+                        maxMaxBufferLength: 600,
+                        maxBufferSize: 60 * 1000 * 1000,
+                        maxBufferHole: 0.5,
+                        initialLiveManifestSize: 1,
+                        manifestLoadingTimeOut: 10000,
+                        manifestLoadingMaxRetry: 5,
+                        levelLoadingTimeOut: 10000,
+                        levelLoadingMaxRetry: 5
+                    });
+
+                    hls.on(Hls.Events.ERROR, function(event, data) {
+                        if (data.fatal) {
+                            switch(data.type) {
+                                case Hls.ErrorTypes.NETWORK_ERROR:
+                                    console.log('Fatal network error encountered, trying to recover');
+                                    hls.startLoad();
+                                    break;
+                                case Hls.ErrorTypes.MEDIA_ERROR:
+                                    console.log('Fatal media error encountered, trying to recover');
+                                    hls.recoverMediaError();
+                                    break;
+                                default:
+                                    console.log('Fatal error, cannot recover');
+                                    initializePlayer();
+                                    break;
+                            }
+                        }
+                    });
+                }
             }
-        }
 
-        function playChannel(link, headers) {
-            const player = document.getElementById("tv-player");
-            player.src = link;
-            console.log("Playing channel with headers:", headers);
-        }
+            // Load and display channels
+            async function loadChannels() {
+                showLoading(true);
+                try {
+                    const response = await fetch(channelDataUrl);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const channels = await response.json();
+                    const channelList = document.getElementById('channel-list');
+                    channels.forEach(channel => {
+                        const card = document.createElement('div');
+                        card.className = 'channel-card';
+                        card.dataset.channelId = channel.id;
+                        card.innerHTML = `
+                            <img src="${channel.logo}" alt="${channel.name}" class="channel-logo">
+                            <p class="channel-name">${channel.name}</p>
+                        `;
+                        card.addEventListener('click', () => {
+                            playChannel(channel);
+                        });
+                        channelList.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Error loading channels:', error);
+                    showErrorMessage('Channels could not be loaded. Please try again later.');
+                } finally {
+                    showLoading(false);
+                }
+            }
 
-        function showError(message) {
-            const errorDiv = document.getElementById("error-message");
-            errorDiv.textContent = message;
-            errorDiv.style.display = "block";
-        }
+            // Play a channel
+            function playChannel(channel) {
+                if (currentChannel === channel.id) return;
+                currentChannel = channel.id;
+                document.querySelectorAll('.channel-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                document.querySelector(`[data-channel-id="${channel.id}"]`).classList.add('active');
 
-        loadChannels();
+                if (hls) {
+                    hls.destroy();
+                }
+
+                if (player) {
+                    player.destroy();
+                }
+
+                player = new Plyr('#player', {
+                    controls: [
+                        'play-large', 'play', 'progress', 'current-time', 'duration',
+                        'mute', 'volume', 'settings', 'fullscreen'
+                    ],
+                    quality: {
+                        default: 720,
+                        options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240]
+                    },
+                    speed: {
+                        selected: 1,
+                        options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+                    }
+                });
+
+                if (Hls.isSupported()) {
+                    hls = new Hls({
+                        enableWorker: true,
+                        lowLatencyMode: true,
+                        backBufferLength: 90,
+                        maxBufferLength: 30,
+                        maxMaxBufferLength: 600,
+                        maxBufferSize: 60 * 1000 * 1000,
+                        maxBufferHole: 0.5,
+                        initialLiveManifestSize: 1,
+                        manifestLoadingTimeOut: 10000,
+                        manifestLoadingMaxRetry: 5,
+                        levelLoadingTimeOut: 10000,
+                        levelLoadingMaxRetry: 5
+                    });
+
+                    hls.loadSource(channel.streamUrl);
+                    hls.attachMedia(player.media);
+                } else if (player.media.canPlayType('application/vnd.apple.mpegurl')) {
+                    player.media.src = channel.streamUrl;
+                    player.media.addEventListener('loadedmetadata', () => {
+                        player.media.play();
+                    });
+                }
+            }
+
+            // Show loading overlay
+            function showLoading(show) {
+                document.getElementById('loading').style.display = show ? 'flex' : 'none';
+            }
+
+            // Show error message
+            function showErrorMessage(message) {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+
+            // Initialize player and load channels
+            initializePlayer();
+            loadChannels();
+        });
     </script>
 </body>
-
 </html>
