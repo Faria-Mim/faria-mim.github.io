@@ -14,11 +14,17 @@ let allChannels = [];
 
 async function fetchPlaylists() {
     try {
-        const responses = await Promise.all(playlists.map(url => fetch(url)));
-        const contents = await Promise.all(responses.map(res => res.text()));
+        const responses = await Promise.all(playlists.map(url => 
+            fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`)
+        ));
+        const contents = await Promise.all(responses.map(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.text();
+        }));
         return contents;
     } catch (error) {
         console.error('Error fetching playlists:', error);
+        alert('Failed to fetch channel list. Please try again later.');
         return [];
     }
 }
@@ -142,6 +148,8 @@ searchInput.addEventListener('keyup', (event) => {
 
 async function init() {
     const playlistContents = await fetchPlaylists();
+    if (playlistContents.length === 0) return;
+
     allChannels = [
         ...parseM3U(playlistContents[0]),
         ...parseJSON(playlistContents[1])
@@ -153,16 +161,3 @@ async function init() {
 }
 
 init();
-
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registered:', registration);
-            })
-            .catch(error => {
-                console.log('Service Worker registration failed:', error);
-            });
-    });
-}
