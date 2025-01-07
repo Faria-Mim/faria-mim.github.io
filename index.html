@@ -60,7 +60,7 @@
                     </li>
                 </ul>
                 <form class="d-flex" id="search-form">
-                    <input class="form-control me-2" type="search" placeholder="Search channels" aria-label="Search" id="search-input">
+                    <input class="search-input form-control me-2" type="search" placeholder="Search channels" aria-label="Search" id="search-input">
                     <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
                 <button id="dark-mode-toggle" class="btn btn-outline-light ms-2">
@@ -121,5 +121,12 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="js/app.js" type="module"></script>
     <script type='text/javascript' src='//turkstench.com/49/24/89/492489938e57df1eebdcc5b8f19b29e4.js'></script>
+
+    <script>
+        // Dark Mode Toggle
+        document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
 </body>
 </html>
