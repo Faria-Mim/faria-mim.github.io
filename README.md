@@ -1,4 +1,4 @@
-# Watch Your Favorite TV Channels Online with Faria's TV Streaming App
+# Watch TV Channels Online with Faria's TV Streaming App!
 
 Welcome to **Faria's TV Streaming App**! Enjoy high-quality, uninterrupted streaming of your favorite Bangladeshi TV channels right from your browser. Experience the best of live TV with:
 
