@@ -1,31 +1,56 @@
 import { initializePlayer, playChannel } from './player.js';
 
 const channelGrid = document.getElementById('channel-grid');
-const categoryNav = document.getElementById('category-nav');
+const categoryContainer = document.getElementById('category-container');
+const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
 
-const playlists = [
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const PLAYLISTS = [
     'https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_OTT_Navigator.m3u',
     'https://raw.githubusercontent.com/byte-capsule/Toffee-Channels-Link-Headers/refs/heads/main/toffee_NS_Player.m3u'
 ];
 
 let allChannels = [];
+let currentCategory = 'All';
+
+const showLoader = () => {
+    channelGrid.innerHTML = '<div class="loader"></div>';
+};
+
+const hideLoader = () => {
+    const loader = channelGrid.querySelector('.loader');
+    if (loader) {
+        loader.remove();
+    }
+};
+
+const fetchWithRetry = async (url, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return await response.text();
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+        }
+    }
+};
 
 async function fetchPlaylists() {
+    showLoader();
     try {
-        const responses = await Promise.all(playlists.map(url => 
-            fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`)
+        const contents = await Promise.all(PLAYLISTS.map(url => 
+            fetchWithRetry(CORS_PROXY + encodeURIComponent(url))
         ));
-        const contents = await Promise.all(responses.map(res => {
-            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-            return res.text();
-        }));
         return contents;
     } catch (error) {
         console.error('Error fetching playlists:', error);
         showAlert('Failed to fetch channel list. Please try again later.', 'danger');
         return [];
+    } finally {
+        hideLoader();
     }
 }
 
@@ -43,13 +68,17 @@ function parseM3U(content) {
             currentChannel = {
                 name: line.split(',')[1].trim(),
                 logo: metadata['tvg-logo'],
-                category: metadata['group-title']
+                category: metadata['group-title'] || 'Uncategorized'
             };
         } else if (line.startsWith('#EXTVLCOPT:http-user-agent')) {
             currentChannel.userAgent = line.split('=')[1];
         } else if (line.startsWith('#EXTHTTP:')) {
-            const httpOptions = JSON.parse(line.slice(9));
-            currentChannel.cookie = httpOptions.cookie;
+            try {
+                const httpOptions = JSON.parse(line.slice(9));
+                currentChannel.cookie = httpOptions.cookie;
+            } catch (error) {
+                console.error('Error parsing HTTP options:', error);
+            }
         } else if (line.trim() && !line.startsWith('#')) {
             currentChannel.link = line.trim();
             channels.push(currentChannel);
@@ -60,44 +89,35 @@ function parseM3U(content) {
     return channels;
 }
 
-function parseJSON(content) {
-    try {
-        return JSON.parse(content);
-    } catch (error) {
-        console.error('Error parsing JSON:', error);
-        return [];
-    }
-}
-
 function createChannelCard(channel) {
     const col = document.createElement('div');
-    col.className = 'col-6 col-md-4 col-lg-3';
+    col.className = 'col-6 col-md-4 col-lg-3 fade-in';
 
     const card = document.createElement('div');
-    card.className = 'channel-card h-100';
+    card.className = 'card channel-card shadow-sm';
 
-    const logo = document.createElement('img');
-    logo.src = channel.logo || 'placeholder.png';
-    logo.alt = `${channel.name} logo`;
-    logo.className = 'channel-logo';
-    logo.loading = 'lazy';
+    const img = document.createElement('img');
+    img.src = channel.logo || 'images/placeholder.png';
+    img.alt = `${channel.name} logo`;
+    img.className = 'card-img-top channel-logo';
+    img.loading = 'lazy';
 
     const cardBody = document.createElement('div');
     cardBody.className = 'card-body d-flex flex-column';
 
-    const name = document.createElement('h5');
-    name.textContent = channel.name;
-    name.className = 'channel-name text-center mb-3';
+    const title = document.createElement('h5');
+    title.className = 'card-title text-truncate';
+    title.textContent = channel.name;
 
     const playButton = document.createElement('button');
+    playButton.className = 'btn btn-primary mt-auto btn-play';
     playButton.textContent = 'Play';
-    playButton.className = 'btn btn-primary mt-auto';
     playButton.addEventListener('click', () => playChannel(channel));
 
-    cardBody.appendChild(name);
+    cardBody.appendChild(title);
     cardBody.appendChild(playButton);
 
-    card.appendChild(logo);
+    card.appendChild(img);
     card.appendChild(cardBody);
     col.appendChild(card);
 
@@ -106,36 +126,41 @@ function createChannelCard(channel) {
 
 function renderChannels(channels) {
     channelGrid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     channels.forEach(channel => {
         const card = createChannelCard(channel);
-        channelGrid.appendChild(card);
+        fragment.appendChild(card);
     });
+    channelGrid.appendChild(fragment);
 }
 
 function renderCategories(channels) {
-    const categories = ['All', ...new Set(channels.map(channel => channel.category))];
-    categoryNav.innerHTML = '';
+    const categories = ['All', ...new Set(channels.map(channel => channel.category))].sort();
+    categoryContainer.innerHTML = '';
 
+    const fragment = document.createDocumentFragment();
     categories.forEach(category => {
         const button = document.createElement('button');
         button.textContent = category;
-        button.className = 'nav-link';
+        button.className = `btn btn-outline-primary category-btn${category === currentCategory ? ' active' : ''}`;
         button.addEventListener('click', () => filterChannels(category));
-        categoryNav.appendChild(button);
+        fragment.appendChild(button);
     });
-
-    categoryNav.firstChild.classList.add('active');
+    categoryContainer.appendChild(fragment);
 }
 
 function filterChannels(category) {
+    currentCategory = category;
     const filteredChannels = category === 'All' 
         ? allChannels 
         : allChannels.filter(channel => channel.category === category);
     renderChannels(filteredChannels);
+    updateActiveCategory();
+}
 
-    // Update active category
-    categoryNav.querySelectorAll('.nav-link').forEach(button => {
-        button.classList.toggle('active', button.textContent === category);
+function updateActiveCategory() {
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === currentCategory);
     });
 }
 
@@ -147,35 +172,53 @@ function searchChannels(query) {
 }
 
 function showAlert(message, type) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-    alertDiv.role = 'alert';
-    alertDiv.innerHTML = `
+    const alertContainer = document.getElementById('alert-container');
+    const alertElement = document.createElement('div');
+    alertElement.className = `alert alert-${type} alert-dismissible fade show`;
+    alertElement.role = 'alert';
+    alertElement.innerHTML = `
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-    document.body.insertBefore(alertDiv, document.body.firstChild);
+    alertContainer.appendChild(alertElement);
+
+    setTimeout(() => {
+        alertElement.remove();
+    }, 5000);
 }
 
-searchButton.addEventListener('click', () => searchChannels(searchInput.value));
-searchInput.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-        searchChannels(searchInput.value);
-    }
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    searchChannels(searchInput.value);
 });
 
 async function init() {
     const playlistContents = await fetchPlaylists();
     if (playlistContents.length === 0) return;
 
-    allChannels = [
-        ...parseM3U(playlistContents[0]),
-        ...parseJSON(playlistContents[1])
-    ];
+    allChannels = playlistContents.flatMap(content => parseM3U(content));
+    allChannels.sort((a, b) => a.name.localeCompare(b.name));
 
     renderChannels(allChannels);
     renderCategories(allChannels);
     initializePlayer();
+
+    // Add event listener for dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
 }
 
 init();
+
