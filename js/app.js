@@ -24,7 +24,7 @@ async function fetchPlaylists() {
         return contents;
     } catch (error) {
         console.error('Error fetching playlists:', error);
-        alert('Failed to fetch channel list. Please try again later.');
+        showAlert('Failed to fetch channel list. Please try again later.', 'danger');
         return [];
     }
 }
@@ -70,29 +70,38 @@ function parseJSON(content) {
 }
 
 function createChannelCard(channel) {
+    const col = document.createElement('div');
+    col.className = 'col-6 col-md-4 col-lg-3';
+
     const card = document.createElement('div');
-    card.className = 'channel-card';
+    card.className = 'channel-card h-100';
 
     const logo = document.createElement('img');
-    logo.src = channel.logo;
+    logo.src = channel.logo || 'placeholder.png';
     logo.alt = `${channel.name} logo`;
     logo.className = 'channel-logo';
     logo.loading = 'lazy';
 
-    const name = document.createElement('div');
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body d-flex flex-column';
+
+    const name = document.createElement('h5');
     name.textContent = channel.name;
-    name.className = 'channel-name';
+    name.className = 'channel-name text-center mb-3';
 
     const playButton = document.createElement('button');
     playButton.textContent = 'Play';
-    playButton.className = 'play-button';
+    playButton.className = 'btn btn-primary mt-auto';
     playButton.addEventListener('click', () => playChannel(channel));
 
-    card.appendChild(logo);
-    card.appendChild(name);
-    card.appendChild(playButton);
+    cardBody.appendChild(name);
+    cardBody.appendChild(playButton);
 
-    return card;
+    card.appendChild(logo);
+    card.appendChild(cardBody);
+    col.appendChild(card);
+
+    return col;
 }
 
 function renderChannels(channels) {
@@ -104,20 +113,18 @@ function renderChannels(channels) {
 }
 
 function renderCategories(channels) {
-    const categories = [...new Set(channels.map(channel => channel.category))];
+    const categories = ['All', ...new Set(channels.map(channel => channel.category))];
     categoryNav.innerHTML = '';
-
-    const allButton = document.createElement('button');
-    allButton.textContent = 'All';
-    allButton.addEventListener('click', () => filterChannels('All'));
-    categoryNav.appendChild(allButton);
 
     categories.forEach(category => {
         const button = document.createElement('button');
         button.textContent = category;
+        button.className = 'nav-link';
         button.addEventListener('click', () => filterChannels(category));
         categoryNav.appendChild(button);
     });
+
+    categoryNav.firstChild.classList.add('active');
 }
 
 function filterChannels(category) {
@@ -127,7 +134,7 @@ function filterChannels(category) {
     renderChannels(filteredChannels);
 
     // Update active category
-    categoryNav.querySelectorAll('button').forEach(button => {
+    categoryNav.querySelectorAll('.nav-link').forEach(button => {
         button.classList.toggle('active', button.textContent === category);
     });
 }
@@ -137,6 +144,17 @@ function searchChannels(query) {
         channel.name.toLowerCase().includes(query.toLowerCase())
     );
     renderChannels(filteredChannels);
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    document.body.insertBefore(alertDiv, document.body.firstChild);
 }
 
 searchButton.addEventListener('click', () => searchChannels(searchInput.value));
